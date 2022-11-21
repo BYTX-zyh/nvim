@@ -1,4 +1,26 @@
+--[[ 
+<C-n>/<Down> -- 下一个项目
+<C-p>/<Up>  --上一个项目
+j/k --下/上一个 normal
+H/M/L --选择高/中/低 normal
+gg/G --选择第一个/最后一个项目 normal
+<CR> --确认选择
+<C-x> --以水平拆分的形式转到选择的文件
+<C-v> --以垂直拆分的形式转到选择的文件
+<C-t> --转到新选项卡中的文件 在新选项卡中打开选中的文件
+<C-u> --预览窗口中向上滚动
+<C-d> --预览窗口中向下滚动
+<c-/> --显示选择器操作的映射（insert模式）
+? --显示选择器操作的映射（normal模式）
+<C-c> --关闭telescope
+<Ese> -- 关闭telescope（normal模式）
+<Tab> --切换选择并移动到下一个选择
+<S-Tab> --切换选择并移动到上一个选择
+<C-q> --将所有未过滤的项目发送到快速修复列表
+<M-q> --将所有选定选项发送到qflist
+--]]
 -- 键映射
+--
 -- local builtin = require('telescope.builtin')
 -- vim.keymap.set('n', 'ff', builtin.find_files, {}) -- ff:文件查找
 -- vim.keymap.set('n', 'fg', builtin.live_grep, {}) -- fg:grep
@@ -97,24 +119,4 @@ require('telescope').load_extension('which')
 end
 
 return telescope
---[[ 
-<C-n>/<Down> -- 下一个项目
-<C-p>/<Up>  --上一个项目
-j/k --下/上一个 normal
-H/M/L --选择高/中/低 normal
-gg/G --选择第一个/最后一个项目 normal
-<CR> --确认选择
-<C-x> --以水平拆分的形式转到选择的文件
-<C-v> --以垂直拆分的形式转到选择的文件
-<C-t> --转到新选项卡中的文件 在新选项卡中打开选中的文件
-<C-u> --预览窗口中向上滚动
-<C-d> --预览窗口中向下滚动
-<c-/> --显示选择器操作的映射（insert模式）
-? --显示选择器操作的映射（normal模式）
-<C-c> --关闭telescope
-<Ese> -- 关闭telescope（normal模式）
-<Tab> --切换选择并移动到下一个选择
-<S-Tab> --切换选择并移动到上一个选择
-<C-q> --将所有未过滤的项目发送到快速修复列表
-<M-q> --将所有选定选项发送到qflist
---]]
+

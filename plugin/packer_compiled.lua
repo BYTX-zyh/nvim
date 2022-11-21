@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/Users/bytx/.local/share/nvim/site/pack/packer/start/cmp-spell",
     url = "https://github.com/f3fora/cmp-spell"
   },
+  ["dashboard-nvim"] = {
+    loaded = true,
+    path = "/Users/bytx/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
+    url = "https://github.com/glepnir/dashboard-nvim"
+  },
   ["hop.nvim"] = {
     loaded = true,
     path = "/Users/bytx/.local/share/nvim/site/pack/packer/start/hop.nvim",

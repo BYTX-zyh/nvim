@@ -91,14 +91,13 @@ Plug 'SirVer/ultisnips'
 Plug 'BYTX-zyh/vim-snippets'
 
 " 欢迎界面修改
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 
 " 下方状态栏美化插件
 Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
-lua require('plugins')
 lua require('init')
 lua require('dap-go').setup()
 
@@ -112,8 +111,8 @@ source ~/.config/nvim/config/theme.vim
 " vim-startify  
 " 详细config查看：https://github.com/mhinz/vim-startify/wiki/Example-configurations
 " vim-startify 设置开头内容
- let g:startify_custom_header =
-       \ startify#pad(split(system('figlet -w 100 BYTX - NEOVIM'), '\n'))
+ " let g:startify_custom_header =
+       " \ startify#pad(split(system('figlet -w 100 BYTX - NEOVIM'), '\n'))
 
 " 启用语法隐藏
  set conceallevel=2

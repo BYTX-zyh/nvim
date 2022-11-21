@@ -1,4 +1,9 @@
+
+require('plugins')
+
+
 require('PluginConfig.dap-config')
+
 require('PluginConfig.dap-ui')
 require('PluginConfig.nvim-dap-virtual-text')
 require("PluginConfig.which-key")

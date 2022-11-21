@@ -29,6 +29,9 @@ require("indent_blankline").setup {
     --     "IndentBlanklineIndent5",
     --     "IndentBlanklineIndent6",
     -- },
+    -- 来源：https://github.com/glepnir/dashboard-nvim#faq
+    filetype_exclude = { "dashboard" }
+
 }
 end
 

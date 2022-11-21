@@ -59,6 +59,16 @@ return require('packer').startup(function()
     use { 'NLKNguyen/papercolor-theme' } -- light/dark
     use { 'folke/tokyonight.nvim' } -- 除day
 
+    -- 启动界面
+    use { 'glepnir/dashboard-nvim' ,
+    config = require("ui.dashboard").config()
+    }
+
+    -- use { 'mhinz/vim-startify',
+    -- config= vim.cmd('source ~/.config/nvim/lua/ui/vim-startify.vim')
+    -- }
+
+
 
     -- -- 键映射提示
     use { "folke/which-key.nvim", }
