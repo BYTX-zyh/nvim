@@ -12,7 +12,6 @@ packadd({
 packadd({
   'nvimdev/lspsaga.nvim',
   event = 'LspAttach',
-  dev = true,
   config = function()
     require('lspsaga').setup({
       symbol_in_winbar = {

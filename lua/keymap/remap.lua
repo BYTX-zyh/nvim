@@ -13,7 +13,7 @@ map.n({
   ['<C-h>'] = '<C-w>h',
   ['<C-l>'] = '<C-w>l',
   ['<C-j>'] = '<C-w>j',
-  ['<C-k>'] = '<C-w>k',
+  -- ['<C-k>'] = '<C-w>k',
   ['<A-[>'] = cmd('vertical resize -5'),
   ['<A-]>'] = cmd('vertical resize +5'),
   ['[t'] = cmd('vs | vertical resize -5 | terminal'),
@@ -26,7 +26,7 @@ map.i({
   ['<C-b>'] = '<Left>',
   ['<C-f>'] = '<Right>',
   ['<C-a>'] = '<Esc>^i',
-  ['<C-k>'] = '<C-o>d$',
+  -- ['<C-k>'] = '<C-o>d$',
   ['<C-s>'] = '<ESC>:w<CR>',
   ['<C-n>'] = '<Down>',
   ['<C-p>'] = '<Up>',
@@ -52,6 +52,8 @@ map.t({
   ['<Esc>'] = [[<C-\><C-n>]],
   ['<C-x>k'] = cmd('quit'),
 })
+
+map.n('<Leader>s',cmd("source ~/.config/nvim/lua/modules/editor/package.lua"))
 
 -- insert cut text to paste
 map.i('<A-w>', function()
