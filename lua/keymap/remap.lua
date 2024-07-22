@@ -106,13 +106,16 @@ map.i('<S-TAB>', function()
 end, { expr = true })
 
 map.i('<CR>', function()
-  return vim.fn.pumvisible() == 1 and '<C-y>' or _G.PairMate.cr()
+  if vim.fn.pumvisible() == 1 then
+    require('internal.completion').key_with_disable_textchangedi('<C-y>')
+  else
+    return _G.PairMate.cr()
+  end
 end, { expr = true })
 
 map.i('<C-e>', function()
   if vim.fn.pumvisible() == 1 then
-    require('epo').disable_trigger()
-    return '<c-e>'
+    require('internal.completion').key_with_disable_textchangedi('<C-e>')
   else
     return '<End>'
   end
@@ -123,14 +126,23 @@ local ns_id, mark_id = vim.api.nvim_create_namespace('my_marks'), nil
 map.i('<C-t>', function()
   if not mark_id then
     local row, col = unpack(api.nvim_win_get_cursor(0))
-    mark_id = api.nvim_buf_set_extmark(0, ns_id, row - 1, col, { id = 1, hl_group = 'IncSearch' })
+    mark_id = api.nvim_buf_set_extmark(0, ns_id, row - 1, col, {
+      virt_text = { { '⚑', 'DiagnosticError' } },
+      hl_group = 'Search',
+      virt_text_pos = 'inline',
+    })
     return
   end
   local mark = api.nvim_buf_get_extmark_by_id(0, ns_id, mark_id, {})
   if not mark or #mark == 0 then
     return
   end
-  api.nvim_win_set_cursor(0, { mark[1] + 1, mark[2] })
+  pcall(api.nvim_win_set_cursor, 0, { mark[1] + 1, mark[2] })
   api.nvim_buf_del_extmark(0, ns_id, mark_id)
   mark_id = nil
+end)
+
+-- move to the top of file like emacs M-<
+map.i('<A-<>', function()
+  api.nvim_win_set_cursor(0, { 1, 1 })
 end)

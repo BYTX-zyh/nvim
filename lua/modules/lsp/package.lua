@@ -14,8 +14,8 @@ packadd({
   event = 'LspAttach',
   config = function()
     require('lspsaga').setup({
+      ui = { use_nerd = false },
       symbol_in_winbar = {
-        enable = false,
         hide_keyword = true,
         folder_level = 0,
       },
@@ -26,13 +26,5 @@ packadd({
         layout = 'float',
       },
     })
-  end,
-})
-
-packadd({
-  'nvimdev/epo.nvim',
-  event = 'LspAttach',
-  config = function()
-    require('epo').setup()
   end,
 })

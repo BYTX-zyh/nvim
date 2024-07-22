@@ -1,15 +1,8 @@
 local M = {}
 local lspconfig = require('lspconfig')
 
-M.capabilities = vim.tbl_deep_extend(
-  'force',
-  vim.lsp.protocol.make_client_capabilities(),
-  require('epo').register_cap()
-)
-
-function M._attach(client, bufnr)
+function M._attach(client, _)
   vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
-  -- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
   client.server_capabilities.semanticTokensProvider = nil
   local orignal = vim.notify
   local mynotify = function(msg, level, opts)
@@ -71,7 +64,18 @@ lspconfig.lua_ls.setup({
 })
 
 lspconfig.clangd.setup({
-  cmd = { 'clangd', '--background-index' },
+  cmd = {
+    'clangd',
+    '--background-index',
+  },
+  init_options = {
+    fallbackFlags = {
+      _G.is_mac and '-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include',
+      _G.is_mac and '-isystem/opt/homebrew/Cellar/sdl2/2.30.5/include',
+      _G.is_mac and '-isystem/opt/homebrew/Cellar/glew/2.2.0_1/include',
+      _G.is_mac and '-isystem/opt/homebrew/Cellar/freetype/2.13.2/include/freetype2',
+    },
+  },
   on_attach = M._attach,
   capabilities = M.capabilities,
   root_dir = function(fname)
