@@ -2,7 +2,7 @@ require('core.pack'):boot_strap()
 require('core.options')
 
 -- some color i interested
--- backup: #05262e
+-- backup: #05262e #79a617
 vim.cmd([[
 hi EndOfBuffer guifg=#14161b
 hi Function guifg=#a6dbff ctermfg=12
@@ -19,6 +19,8 @@ hi DiagnosticUnderlineOk guisp=#b3f6c0 cterm=underline gui=underline
 
 hi IndentLine guifg=#2c2e33
 hi IndentLineCurrent guifg=#9b9ea4
+
+hi netrwTreeBar guifg=#2c2e33
 
 hi DashboardHeader guifg=#b3f6c0
 hi GitSignsAdd guifg=#005523

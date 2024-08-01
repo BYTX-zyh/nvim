@@ -59,4 +59,20 @@ map.nt('<A-d>', cmd('Lspsaga term_toggle'))
 
 map.nx('ga', cmd('Lspsaga code_action'))
 
-map.n('<leader>n', function() end)
+local loaded_netrw = false
+-- keymap see internal/event.lua
+map.n('<leader>n', function()
+  if not loaded_netrw then
+    vim.g.loaded_netrwPlugin = nil
+    vim.g.netrw_keepdir = 0
+    vim.g.netrw_winsize = math.floor((30 / vim.o.columns) * 100)
+    vim.g.netrw_banner = 0
+    vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]]
+    vim.g.netrw_liststyle = 3
+    vim.cmd.source(vim.env.VIMRUNTIME .. '/plugin/netrwPlugin.vim')
+    vim.cmd('Lexplore %:p:h')
+    loaded_netrw = true
+    return
+  end
+  vim.cmd('Lexplore %:p:h')
+end)
