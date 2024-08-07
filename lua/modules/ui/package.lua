@@ -27,3 +27,19 @@ packadd({
     require('indentmini').setup()
   end,
 })
+
+packadd({
+  'akinsho/bufferline.nvim',
+  version = '*',
+  dependencies = 'nvim-tree/nvim-web-devicons',
+})
+
+packadd({
+  'rcarriga/nvim-notify',
+  event = 'UIEnter',
+})
+
+packadd({
+  'onsails/lspkind.nvim',
+  config = conf.lspkind,
+})

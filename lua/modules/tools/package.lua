@@ -44,3 +44,13 @@ packadd({
   cmd = { 'SessionSave', 'SessionLoad', 'SessionDelete' },
   opts = true,
 })
+
+packadd({
+  'sindrets/diffview.nvim',
+  cmd = {'DiffviewOpen'},
+})
+
+packadd({
+  'folke/todo-comments.nvim',
+  dependencies = { "nvim-lua/plenary.nvim" },
+})
