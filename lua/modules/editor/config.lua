@@ -42,7 +42,6 @@ function config.nvim_treesitter()
       'typescript',
       'javascript',
       'tsx',
-      'bash',
       'css',
       'scss',
       'diff',
@@ -58,6 +57,7 @@ function config.nvim_treesitter()
       'json',
       'jsonc',
       'vimdoc',
+      'vim',
     },
     highlight = {
       enable = true,
