@@ -2,16 +2,7 @@ local M = {}
 local lspconfig = require('lspconfig')
 
 function M._attach(client, _)
-  vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
   client.server_capabilities.semanticTokensProvider = nil
-  local orignal = vim.notify
-  local mynotify = function(msg, level, opts)
-    if msg == 'No code actions available' or msg:find('overly') then
-      return
-    end
-    orignal(msg, level, opts)
-  end
-  vim.notify = mynotify
 end
 
 lspconfig.gopls.setup({
@@ -33,33 +24,30 @@ lspconfig.gopls.setup({
 
 lspconfig.lua_ls.setup({
   on_attach = M._attach,
-  capabilities = M.capabilities,
-  settings = {
-    Lua = {
-      diagnostics = {
-        unusedLocalExclude = { '_*' },
-        globals = { 'vim' },
-        disable = {
-          'luadoc-miss-see-name',
-          'undefined-field',
-        },
-      },
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
+      return
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
       runtime = {
         version = 'LuaJIT',
-        -- path = vim.split(package.path, ';'),
-      },
-      workspace = {
-        library = {
-          vim.env.VIMRUNTIME .. '/lua',
-          '${3rd}/busted/library',
-          '${3rd}/luv/library',
-        },
-        checkThirdParty = 'Disable',
       },
       completion = {
         callSnippet = 'Replace',
       },
-    },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          '${3rd}/luv/library',
+        },
+      },
+    })
+  end,
+  settings = {
+    Lua = {},
   },
 })
 
