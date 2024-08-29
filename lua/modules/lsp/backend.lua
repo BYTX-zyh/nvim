@@ -58,12 +58,7 @@ lspconfig.clangd.setup({
     '--background-index',
   },
   init_options = {
-    fallbackFlags = {
-      _G.is_mac and '-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include',
-      _G.is_mac and '-isystem/opt/homebrew/Cellar/sdl2/2.30.5/include',
-      _G.is_mac and '-isystem/opt/homebrew/Cellar/glew/2.2.0_1/include',
-      _G.is_mac and '-isystem/opt/homebrew/Cellar/freetype/2.13.2/include/freetype2',
-    },
+    fallback_flags = { '-std=c++2b' },
   },
   on_attach = M._attach,
   capabilities = M.capabilities,
@@ -104,11 +99,11 @@ lspconfig.rust_analyzer.setup({
 })
 
 local servers = {
-  'pyright',
+  'basedpyright',
   'bashls',
   'zls',
+  'cmake',
 }
--- lspconfig.pylsp.setup({ settings = { pylsp = { plugins = { pylint = { enabled = true } } } } })
 
 for _, server in ipairs(servers) do
   lspconfig[server].setup({

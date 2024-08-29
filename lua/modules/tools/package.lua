@@ -17,7 +17,7 @@ packadd({
 
 packadd({
   'nvimdev/guard.nvim',
-  ft = _G.my_program_ft,
+  ft = program_ft,
   config = conf.guard,
   dependencies = {
     { 'nvimdev/guard-collection' },
@@ -26,17 +26,11 @@ packadd({
 
 packadd({
   'norcalli/nvim-colorizer.lua',
-  ft = { 'css', 'html', 'sass', 'less', 'typescriptreact', 'conf', 'vim' },
+  event = 'BufEnter */colors/*',
   config = function()
     vim.opt.termguicolors = true
     require('colorizer').setup()
   end,
-})
-
-packadd({
-  'nvimdev/hlsearch.nvim',
-  event = 'BufRead',
-  config = true,
 })
 
 packadd({

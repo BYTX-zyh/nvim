@@ -1,4 +1,4 @@
-local api, lsp, uv = vim.api, vim.lsp, vim.uv
+local api = vim.api
 local au = api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup('GlepnirGroup', {})
 
@@ -21,8 +21,9 @@ au('BufEnter', {
   callback = function()
     require('keymap')
     require('internal.buffer')
+    vim.cmd.packadd('nohlsearch')
   end,
-  desc = 'Lazy load my keymap and buffer relate commands',
+  desc = 'Lazy load my keymap and buffer relate commands and defaul opt plugins',
 })
 
 --disable diagnostic in neovim test file *_spec.lua
@@ -60,6 +61,42 @@ au('InsertEnter', {
   end,
 })
 
+au('LspAttach', {
+  callback = function(args)
+    if vim.bo[args.buf].filetype == 'lua' and api.nvim_buf_get_name(args.buf):find('_spec') then
+      vim.diagnostic.enable(false, { bufnr = args.buf })
+    end
+  end,
+})
+
+local timer = nil --[[uv_timer_t]]
+local function reset_timer()
+  if timer then
+    timer:stop()
+    timer:close()
+  end
+  timer = nil
+end
+
+au('LspDetach', {
+  callback = function(args)
+    local client_id = args.data.client_id
+    local client = vim.lsp.get_clients({ client_id = client_id })[1]
+    if not vim.tbl_isempty(client.attached_buffers) then
+      return
+    end
+    reset_timer()
+    timer = assert(vim.uv.new_timer())
+    timer:start(200, 0, function()
+      reset_timer()
+      vim.schedule(function()
+        vim.lsp.stop_client(client_id, true)
+      end)
+    end)
+  end,
+  desc = 'Auto stop client when no buffer atttached',
+})
+
 au('FileType', {
   pattern = 'netrw',
   callback = function()
@@ -80,5 +117,12 @@ au('FileType', {
     map('c', '%', true, 'create file')
     map('s', split('vsplit'), false, 'vsplit open')
     map('v', split('split'), false, 'split open')
+  end,
+})
+
+au('FileType', {
+  pattern = 'cpp',
+  callback = function()
+    vim.opt_local.cindent = false
   end,
 })

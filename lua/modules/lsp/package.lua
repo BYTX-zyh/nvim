@@ -1,6 +1,6 @@
 packadd({
   'neovim/nvim-lspconfig',
-  ft = _G.my_program_ft,
+  ft = program_ft,
   config = function()
     vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
     local i = '■'
@@ -17,11 +17,10 @@ packadd({
     require('lspsaga').setup({
       ui = { use_nerd = false },
       symbol_in_winbar = {
-        hide_keyword = true,
-        folder_level = 0,
+        enable = false,
       },
       lightbulb = {
-        sign = false,
+        enable = false,
       },
       outline = {
         layout = 'float',
